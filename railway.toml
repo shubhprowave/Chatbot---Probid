@@ -2,6 +2,7 @@
 [build]
 builder = "dockerfile"
 dockerfilePath = "backend/Dockerfile"
+buildContext = "backend"
 
 [deploy]
 healthcheckPath = "/health"
