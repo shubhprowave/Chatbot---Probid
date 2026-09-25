@@ -1,0 +1,34 @@
+# Nixpacks configuration for Railway (no Docker)
+[phases.setup]
+nixPkgs = [
+  "python312",
+  "python312Packages.pip",
+  "python312Packages.virtualenv",
+  "gcc",
+  "libpq",
+  "mysql-client",
+  "openssl",
+  "pkg-config",
+  "curl",
+]
+
+[phases.install]
+cmds = [
+  "python -m venv venv",
+  "source venv/bin/activate",
+  "pip install --index-url https://download.pytorch.org/whl/cpu torch",
+  "pip install -r requirements.txt",
+]
+
+[phases.build]
+cmds = [
+  "echo 'Build complete'",
+]
+
+[start]
+cmd = "source venv/bin/activate && uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
+
+[variables]
+PYTHONUNBUFFERED = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+PIP_NO_CACHE_DIR = "1"

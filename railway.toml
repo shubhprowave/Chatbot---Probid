@@ -1,8 +1,6 @@
-# Railway configuration for backend
+# Railway configuration for backend (Nixpacks - no Docker)
 [build]
-builder = "dockerfile"
-dockerfilePath = "backend/Dockerfile"
-buildContext = "backend"
+builder = "nixpacks"
 
 [deploy]
 healthcheckPath = "/health"
