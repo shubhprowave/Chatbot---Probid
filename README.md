@@ -381,16 +381,3 @@ Proprietary — ProBid Consultants LLP. All rights reserved.
 ---
 
 *Built with FastAPI, PostgreSQL/pgvector, Redis, MySQL, React, Vite, BGE-M3, BGE-Reranker, Groq (Qwen 27B)*
-+ Thought: 948ms
-Done. Created a comprehensive README.md with:
-Project overview — what ProBee is and key features
-Architecture diagram — backend + frontend flow
-Project structure — full file tree with descriptions
-Quick start — local dev setup (backend + frontend)
-Configuration — all .env variables explained
-API endpoints — public + admin with auth details
-RAG pipeline — 8-step flow with contact short-circuit
-Deployment — VPS provisioning via setup-vm.sh, Cloudflare, iframe embed
-Admin dashboard — guide for each panel
-Testing — benchmark, re-embed, eval commands
-Troubleshooting — common issues & fixes
