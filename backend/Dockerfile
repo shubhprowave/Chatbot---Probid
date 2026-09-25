@@ -1,8 +1,12 @@
 # Railway backend Dockerfile
-FROM python:3.12-slim
+# Use bookworm (Debian 12) explicitly for stable mirrors
+FROM python:3.12-slim-bookworm
 
-# Install system dependencies with retry logic
-RUN apt-get update -y && \
+# Install system dependencies with retry logic and fixed mirrors
+RUN echo "deb http://deb.debian.org/debian bookworm main" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian bookworm-updates main" >> /etc/apt/sources.list && \
+    apt-get update -y && \
     apt-get install -y --no-install-recommends \
     gcc \
     libpq-dev \
