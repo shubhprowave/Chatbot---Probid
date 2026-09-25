@@ -1,0 +1,31 @@
+# Railway configuration for backend
+[build]
+builder = "dockerfile"
+dockerfilePath = "backend/Dockerfile"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# Environment variables (set these in Railway dashboard instead)
+# [env]
+# POSTGRES_URL = "postgresql+asyncpg://..."
+# MYSQL_HOST = "..."
+# MYSQL_PORT = "3306"
+# MYSQL_USER = "..."
+# MYSQL_PASSWORD = "..."
+# MYSQL_DB = "probid"
+# REDIS_URL = "redis://..."
+# GROQ_API_KEY = "..."
+# LLM_MODEL = "qwen/qwen3-8b-27b"
+# LLM_BASE_URL = "https://api.groq.com/openai/v1"
+# EMBEDDING_MODEL = "BAAI/bge-m3"
+# RERANKER_MODEL = "BAAI/bge-reranker-base"
+# TOP_K_RETRIEVE = "20"
+# TOP_K_RERANK = "4"
+# ADMIN_TOKEN = "your-secure-random-token"
+# CORS_ORIGINS = "https://your-vercel-app.vercel.app,https://your-custom-domain.com"
+# HF_HOME = "/app/models"
+# TRANSFORMERS_CACHE = "/app/models"

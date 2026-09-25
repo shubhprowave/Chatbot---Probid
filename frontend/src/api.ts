@@ -1,5 +1,7 @@
 const TOKEN_KEY = "rag_admin_token";
 
+const API_BASE = import.meta.env.VITE_API_URL || "";
+
 export function getToken(): string {
   return localStorage.getItem(TOKEN_KEY) || "";
 }
@@ -9,7 +11,7 @@ export function setToken(t: string) {
 }
 
 async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +50,7 @@ export const API = {
     fd.append("tenant_id", "default");
     fd.append("chunk_strategy", chunkStrategy);
     fd.append("chunk_params", JSON.stringify(chunkParams));
-    const res = await fetch("/api/admin/documents/upload", {
+    const res = await fetch(`${API_BASE}/api/admin/documents/upload`, {
       method: "POST",
       headers: { Authorization: `Bearer ${getToken()}` },
       body: fd,
@@ -65,7 +67,7 @@ export const API = {
     fd.append("tenant_id", "default");
     fd.append("chunk_strategy", chunkStrategy);
     fd.append("chunk_params", JSON.stringify(chunkParams));
-    const res = await fetch("/api/admin/documents/create-text", {
+    const res = await fetch(`${API_BASE}/api/admin/documents/create-text`, {
       method: "POST",
       headers: { Authorization: `Bearer ${getToken()}` },
       body: fd,
@@ -86,7 +88,7 @@ export const API = {
   updateChunk: async (chunkId: string, text: string) => {
     const fd = new FormData();
     fd.append("text", text);
-    const res = await fetch(`/api/admin/chunks/${chunkId}`, {
+    const res = await fetch(`${API_BASE}/api/admin/chunks/${chunkId}`, {
       method: "PUT",
       headers: { Authorization: `Bearer ${getToken()}` },
       body: fd,
@@ -116,7 +118,7 @@ export const API = {
   updatePrompt: async (prompt: string) => {
     const fd = new FormData();
     fd.append("prompt", prompt);
-    const res = await fetch("/api/admin/prompt", {
+    const res = await fetch(`${API_BASE}/api/admin/prompt`, {
       method: "PUT",
       headers: { Authorization: `Bearer ${getToken()}` },
       body: fd,
