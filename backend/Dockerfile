@@ -1,23 +1,25 @@
 # Railway backend Dockerfile
-FROM python:3.13-slim
+FROM python:3.12-slim
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies with retry logic
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
     gcc \
     libpq-dev \
     default-libmysqlclient-dev \
     build-essential \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Install CPU-only PyTorch first (smaller, faster)
-RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch
+# Install CPU-only PyTorch first (smaller, faster) with retries
+RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu --timeout=120 --retries=3 torch
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --timeout=120 --retries=3 -r requirements.txt
 
 # Copy backend source code
 COPY . .
